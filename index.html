@@ -98,6 +98,13 @@ select { padding: 8px; font-size: 18px; }
   border-radius: 10px;
 }
 
+.ipa {
+  color: #666;
+  font-size: 18px;
+  margin-left: 6px;
+  font-style: italic;
+}
+
 /* BUTTON */
 button {
   margin: 8px;
@@ -168,26 +175,22 @@ const videoLinks = {
 /* VOCAB */
 const data = {
   1:[
-{en: "Hello", vn: "Xin chào"},
-  {en: "Hi", vn: "Chào"},
-  {en: "Good morning", vn: "Chào buổi sáng"},
-  {en: "Good afternoon", vn: "Chào buổi chiều"},
-  {en: "Good evening", vn: "Chào buổi tối"},
-  {en: "What’s your name?", vn: "Tên bạn là gì?"},
-  {en: "My name is...", vn: "Tên tôi là..."},
-  {en: "Nice to meet you", vn: "Rất vui được gặp bạn"},
-  {en: "Where are you from?", vn: "Bạn đến từ đâu?"},
-  {en: "I’m from...", vn: "Tôi từ..."},
-  {en: "What do you do?", vn: "Bạn làm nghề gì?"},
-  {en: "I’m a/an...", vn: "Tôi là... (nghề nghiệp)"},
-  {en: "What about you? / And you?", vn: "Còn bạn thì sao?"},
-  {en: "hometown", vn: "quê hương"},
-  {en: "occupation", vn: "nghề nghiệp"},
-  {en: "student", vn: "học sinh, sinh viên"},
-  {en: "teacher", vn: "giáo viên"},
-  {en: "engineer", vn: "kỹ sư"},
-  {en: "office worker", vn: "nhân viên văn phòng"}, 
+  {en: "Hello", ipa: "/həˈloʊ/", vn: "Xin chào"},
+  {en: "Hi", ipa: "/haɪ/", vn: "Chào"},
+  {en: "Good morning", ipa: "/ɡʊd ˈmɔrnɪŋ/", vn: "Chào buổi sáng"},
+  {en: "Good afternoon", ipa: "/ɡʊd ˌæftərˈnun/", vn: "Chào buổi chiều"},
+  {en: "Good evening", ipa: "/ɡʊd ˈivnɪŋ/", vn: "Chào buổi tối"},
+  {en: "What’s your name?", ipa: "/wʌts jʊr neɪm/", vn: "Tên bạn là gì?"},
+  {en: "My name is...", ipa: "/maɪ neɪm ɪz/", vn: "Tên tôi là..."},
+  {en: "Nice to meet you", ipa: "/naɪs tə mit ju/", vn: "Rất vui được gặp bạn"},
+  {en: "Where are you from?", ipa: "/wer ɑr ju frəm/", vn: "Bạn đến từ đâu?"},
+  {en: "I’m from...", ipa: "/aɪm frəm/", vn: "Tôi từ..."},
+  {en: "What do you do?", ipa: "/wʌt də ju du/", vn: "Bạn làm nghề gì?"},
+  {en: "I’m a/an...", ipa: "/aɪm ə/", vn: "Tôi là..."},
+  {en: "What about you?", ipa: "/wʌt əˈbaʊt ju/", vn: "Còn bạn thì sao?"}
  ],
+
+
   2:[
     {en:"Work", vn:"Làm việc"}
   ]
@@ -267,7 +270,11 @@ function renderWords(){
 
   box.innerHTML = list.map((w,i)=>`
     <div class="word-row">
-      <span>${w.en}</span>
+<span>
+  ${w.en} 
+  <span class="ipa">${w.ipa || ""}</span>
+</span>
+
       <span>${w.vn}</span>
       <input type="checkbox" ${w.tick ? "checked":""} data-index="${i}">
     </div>
@@ -306,7 +313,9 @@ function nextWord(){
 
 function know(){ nextWord(); }
 function dontKnow(){
-  document.getElementById("answer").innerHTML = listCopy[index].en;
+document.getElementById("answer").innerHTML =
+  listCopy[index].en + " <span class='ipa'>" + (listCopy[index].ipa || "") + "</span>";
+
 }
 
 /* SPEAKING */
